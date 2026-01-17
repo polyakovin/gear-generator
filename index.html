@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+		body {
+			padding: 60px;
+			background-color: #f5f5f5;
+			color: #060607;
+			font-family: Inter, Helvetica, Arial, sans-serif;
+		}
+
+		.content {
+			width: 100%;
+			max-width: 700px;
+			text-align: center;
+			margin: 0 auto;
+		}
+
+		h1, p, img {
+			margin-top: 20px;
+			max-width: 100%;
+		}
+
+		h1 {
+			font-size: xxx-large;
+		}
+
+		h2 {
+			font-size: xx-large;
+			margin-top: 80px;
+			margin-bottom: -60px;
+		}
+
+		p {
+			font-size: 20px;
+			margin: 80px auto 0;
+			line-height: 1.5;
+		}
+
+		img {
+			box-shadow: #0004 0 25px 50px -12px;
+			border-radius: 12px;
+			box-sizing: border-box;
+			border: 1px solid #555555;
+		}
+
+		textarea {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: auto;
+			margin-top: 20px;
+			box-sizing: border-box;
+			padding: 13px 20px;
+			border-radius: 8px;
+			font-family: Inter, Helvetica, Arial, sans-serif;
+			font-size: 20px;
+			resize: none;
+			overflow: hidden;
+		}
+
+		.textarea-wrapper::before {
+			content: '';
+			position: absolute;
+			right: -50px;
+			top: 70px;
+			width: 164px;
+			height: 130px;
+			background-image: url(arrow-3.png);
+			background-size: cover;
+			pointer-events: none;
+			animation: blink 2s ease-in-out infinite;
+			z-index: 1;
+		}
+
+		.textarea-wrapper::after {
+			content: '';
+			position: absolute;
+			left: -44px;
+			top: 50px;
+			width: 205px;
+			height: 117px;
+			background-image: url(arrow-4.png);
+			background-size: cover;
+			pointer-events: none;
+			animation: blink 2s ease-in-out infinite;
+			z-index: 1;
+			display: none;
+		}
+
+		.textarea-wrapper.was-focused::before {
+			display: none;
+		}
+
+		.textarea-wrapper.was-focused:not(.recorder-clicked)::after {
+			display: block;
+		}
+
+		.image-with-textarea {
+			margin-top: 30px;
+		}
+
+		/* small {
+			font-size: small;
+		} */
+
+		span.emoji {
+			transform: scale(1.7) translate(4px, -2px);
+			display: inline-block;
+		}
+
+		article, section {
+			position: relative;
+		}
+
+		article::before {
+			position: absolute;
+			left: -60px;
+			content: '';
+			height: 100%;
+			width: 0px;
+			border-left: 13px dashed #e6c34380;
+			transform: scaleX(0.2);
+		}
+
+		section::before {
+			position: absolute;
+			left: -73px;
+			top: -6px;
+			content: '';
+			height: 40px;
+			width: 40px;
+			background-color: #eedca1;
+			border-radius: 50%;
+		}
+
+		@keyframes blink {
+			0% {
+				opacity: 1;
+			}
+			50% {
+				opacity: .6;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+	</style>
+	<script defer src="https://cloud.umami.is/script.js" data-website-id="795489f6-4984-4a04-bec0-62eb1d2e3ad5"></script>
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript" >
+		(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+		m[i].l=1*new Date();
+		for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+		k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+		(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(106310794, "init", {
+			clickmap:true,
+			trackLinks:true,
+			accurateTrackBounce:true,
+			webvisor:true
+		});
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/106310794" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+    <script src="https://cdn.amplitude.com/script/9641e63c32c15d560fc464c41994e082.js"></script>
+    <script>
+		// window.amplitude.add(window.sessionReplay.plugin({ sampleRate: 1 }));
+		// window.amplitude.init('9641e63c32c15d560fc464c41994e082', {
+		//   fetchRemoteConfig: true,
+		//   autocapture: true,
+		// });
+		// window.amplitude.track('Page Opened', { page: 'Welcome' });
+	</script>
+	<link rel="icon" type="image/png" sizes="64x64" href="logo-64.png">
+	<title>Gear Generator. Welcome!</title>
+</head>
+<body>
+	<div class="content">
+		<h1>Gear Generator installed!</h1>
+
+		<article>
+			<section>
+				<p>Click the puzzle piece (1) in the top right of your browser.<br>Then, click the little pin (2) next to the extension:</p>
+				<img src="welcome-1.webp" alt="welcome-1">
+			</section>
+
+			<section>
+				<p>
+					Open the extension (3) on any page to start using Gear Generator:
+				</p>
+				<img class="image-with-textarea" src="welcome-2.webp" alt="welcome-2">
+			</section>
+		</article>
+	</div>
+</body>
+</html>
