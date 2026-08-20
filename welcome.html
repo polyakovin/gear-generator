@@ -20,6 +20,70 @@
 			margin: 0 auto;
 		}
 
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			max-width: 700px;
+			margin: 0 auto 40px;
+		}
+
+		.back-link {
+			color: #1769aa;
+			font-weight: 700;
+			text-decoration: none;
+		}
+
+		.back-link:hover,
+		.back-link:focus-visible {
+			text-decoration: underline;
+		}
+
+		.language-switch {
+			display: inline-flex;
+			min-width: 0;
+			margin: 0;
+			padding: 3px;
+			border: 1px solid #d4d4d4;
+			border-radius: 9px;
+			background: #e9e9e9;
+		}
+
+		.visually-hidden {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
+		}
+
+		.language-switch button {
+			min-width: 42px;
+			padding: 8px 9px;
+			border: 0;
+			border-radius: 6px;
+			color: #666;
+			background: transparent;
+			font: 700 12px Inter, Helvetica, Arial, sans-serif;
+			cursor: pointer;
+		}
+
+		.language-switch button.is-active {
+			color: #060607;
+			background: #fff;
+			box-shadow: 0 1px 4px #0002;
+		}
+
+		.language-switch button:focus-visible {
+			outline: 2px solid #1769aa;
+			outline-offset: 1px;
+		}
+
 		h1, p, img {
 			margin-top: 20px;
 			max-width: 100%;
@@ -112,6 +176,26 @@
 				opacity: 1;
 			}
 		}
+
+		@media (max-width: 600px) {
+			body {
+				padding: 24px 20px 48px;
+			}
+
+			h1 {
+				font-size: 2rem;
+			}
+
+			p {
+				margin-top: 56px;
+				font-size: 17px;
+			}
+
+			article::before,
+			section::before {
+				display: none;
+			}
+		}
 	</style>
 	<script defer src="https://cloud.umami.is/script.js" data-website-id="795489f6-4984-4a04-bec0-62eb1d2e3ad5"></script>
 	<!-- Yandex.Metrika counter -->
@@ -144,22 +228,106 @@
 </head>
 <body>
 	<noscript><div><img src="https://mc.yandex.ru/watch/106310794" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<div class="topbar">
+		<a class="back-link" href="./" data-i18n="openGenerator">Open generator</a>
+		<fieldset class="language-switch">
+			<legend class="visually-hidden" data-i18n="language">Language</legend>
+			<button type="button" data-language="en">EN</button>
+			<button type="button" data-language="ru">RU</button>
+		</fieldset>
+	</div>
 	<div class="content">
-		<h1>Gear Generator installed!</h1>
+		<h1 data-i18n="installed">Gear Generator installed!</h1>
 
 		<article>
 			<section>
-				<p>Click the puzzle piece (1) in the top right of your browser.<br>Then, click the little pin (2) next to the extension:</p>
-				<img src="welcome-1.webp" alt="welcome-1">
+				<p data-i18n="pinExtension">Click the puzzle piece (1) in the top right of your browser.<br>Then, click the little pin (2) next to the extension:</p>
+				<img src="welcome-1.webp" alt="Pin the extension" data-i18n-alt="pinImageAlt">
 			</section>
 
 			<section>
-				<p>
+				<p data-i18n="openExtension">
 					Open the extension (3) on any page to start using Gear Generator:
 				</p>
-				<img class="image-with-textarea" src="welcome-2.webp" alt="welcome-2">
+				<img class="image-with-textarea" src="welcome-2.webp" alt="Open the extension" data-i18n-alt="openImageAlt">
 			</section>
 		</article>
 	</div>
+	<script>
+		const LANGUAGE_STORAGE_KEY = 'gear-generator-language';
+		const translations = {
+			en: {
+				title: 'Gear Generator. Welcome!',
+				language: 'Language',
+				openGenerator: 'Open generator',
+				installed: 'Gear Generator installed!',
+				pinExtension: 'Click the puzzle piece (1) in the top right of your browser.<br>Then, click the little pin (2) next to the extension:',
+				openExtension: 'Open the extension (3) on any page to start using Gear Generator:',
+				pinImageAlt: 'Pin the extension',
+				openImageAlt: 'Open the extension',
+			},
+			ru: {
+				title: 'Генератор шестерён. Добро пожаловать!',
+				language: 'Язык',
+				openGenerator: 'Открыть генератор',
+				installed: 'Генератор шестерён установлен!',
+				pinExtension: 'Нажмите значок пазла (1) в правом верхнем углу браузера.<br>Затем нажмите значок булавки (2) рядом с расширением:',
+				openExtension: 'Откройте расширение (3) на любой странице, чтобы начать работу с генератором шестерён:',
+				pinImageAlt: 'Как закрепить расширение',
+				openImageAlt: 'Как открыть расширение',
+			},
+		};
+
+		const getInitialLanguage = () => {
+			const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+			if (urlLanguage === 'en' || urlLanguage === 'ru') return urlLanguage;
+
+			try {
+				const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+				if (savedLanguage === 'en' || savedLanguage === 'ru') return savedLanguage;
+			} catch {}
+
+			return navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+		};
+
+		const setLanguage = (language) => {
+			const messages = translations[language];
+			document.documentElement.lang = language;
+			document.title = messages.title;
+
+			document.querySelectorAll('[data-i18n]').forEach((element) => {
+				element.innerHTML = messages[element.dataset.i18n];
+			});
+			document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+				element.alt = messages[element.dataset.i18nAlt];
+			});
+			document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+				element.setAttribute('aria-label', messages[element.dataset.i18nAriaLabel]);
+			});
+
+			document.querySelectorAll('[data-language]').forEach((button) => {
+				const isActive = button.dataset.language === language;
+				button.classList.toggle('is-active', isActive);
+				button.setAttribute('aria-pressed', String(isActive));
+			});
+
+			const backLink = document.querySelector('.back-link');
+			backLink.href = `./?lang=${language}`;
+
+			try {
+				window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+			} catch {}
+
+			const url = new URL(window.location.href);
+			url.searchParams.set('lang', language);
+			window.history.replaceState(null, '', url);
+		};
+
+		document.querySelectorAll('[data-language]').forEach((button) => {
+			button.addEventListener('click', () => setLanguage(button.dataset.language));
+		});
+
+		setLanguage(getInitialLanguage());
+	</script>
 </body>
 </html>
