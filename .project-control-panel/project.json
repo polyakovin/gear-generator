@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "description": "Статическая веб-публикация Gear Generator и страницы установки расширения.",
+    "goal": "Доставлять веб-редактор и инструкцию установки, собираемые из исходного Gear Generator.",
+    "platform": "Статический веб; GitHub Pages",
+    "updated_at": "2026-10-04",
+    "stage": "Репозиторий веб-сборки.",
+    "highlights": [
+      "Редактор шестерён и welcome-страница.",
+      "Веб-редактор и Chrome-расширение используют общий исходный продукт."
+    ],
+    "constraints": [
+      "Изменения продукта выполняются в соседнем репозитории gear-generator."
+    ],
+    "links": [
+      {
+        "label": "Веб-редактор",
+        "url": "https://polyakovin.github.io/gear-generator/"
+      },
+      {
+        "label": "Инструкция установки",
+        "url": "https://polyakovin.github.io/gear-generator/welcome.html"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Документ проекта",
+        "path": "../gear-generator/README.md"
+      },
+      {
+        "label": "Документ проекта",
+        "path": "index.html"
+      }
+    ]
+  }
+}
